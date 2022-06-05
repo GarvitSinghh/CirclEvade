@@ -1,0 +1,186 @@
+[gd_scene load_steps=17 format=2]
+
+[ext_resource path="res://Fonts/Schluber.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://Scripts/HUD.gd" type="Script" id=2]
+[ext_resource path="res://Assets/square.png" type="Texture" id=3]
+[ext_resource path="res://Assets/play_button.png" type="Texture" id=4]
+[ext_resource path="res://Assets/replay_button.png" type="Texture" id=5]
+[ext_resource path="res://Assets/Sounds/button.wav" type="AudioStream" id=6]
+[ext_resource path="res://Assets/replay_button_pressed.png" type="Texture" id=7]
+[ext_resource path="res://Assets/play_button_pressed.png" type="Texture" id=8]
+[ext_resource path="res://Assets/play_button_hovered.png" type="Texture" id=9]
+[ext_resource path="res://Assets/replay_button_hovered.png" type="Texture" id=10]
+[ext_resource path="res://Assets/highscore.png" type="Texture" id=11]
+
+[sub_resource type="DynamicFont" id=1]
+size = 90
+font_data = ExtResource( 1 )
+
+[sub_resource type="StyleBoxTexture" id=2]
+texture = ExtResource( 3 )
+region_rect = Rect2( 0, 0, 48, 48 )
+
+[sub_resource type="StyleBoxTexture" id=3]
+texture = ExtResource( 3 )
+region_rect = Rect2( 0, 0, 48, 48 )
+modulate_color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="Animation" id=4]
+resource_name = "Animation"
+length = 0.9
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Highscore:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0.5, 0.5 ), Vector2( 0.4, 0.4 ), Vector2( 0.3, 0.3 ), Vector2( 0.2, 0.2 ), Vector2( 0.1, 0.1 ), Vector2( 0.2, 0.2 ), Vector2( 0.3, 0.3 ), Vector2( 0.4, 0.4 ), Vector2( 0.5, 0.5 ) ]
+}
+
+[sub_resource type="Animation" id=5]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Highscore:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0.5, 0.5 ) ]
+}
+
+[node name="HUD" type="CanvasLayer"]
+script = ExtResource( 2 )
+
+[node name="BackButton2" type="TextureButton" parent="."]
+visible = false
+margin_left = 40.0
+margin_top = 35.0
+margin_right = 120.0
+margin_bottom = 137.0
+texture_normal = ExtResource( 4 )
+texture_pressed = ExtResource( 8 )
+texture_hover = ExtResource( 9 )
+flip_h = true
+
+[node name="InstructionLabel" type="Label" parent="."]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -455.5
+margin_top = -1286.5
+margin_right = 455.5
+margin_bottom = 1286.5
+custom_fonts/font = SubResource( 1 )
+text = "hi"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="EvadeLabel" type="Label" parent="."]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -288.0
+margin_top = -44.5
+margin_right = 288.0
+margin_bottom = 44.5
+custom_fonts/font = SubResource( 1 )
+text = "EVADE"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ScoreProgress" type="ProgressBar" parent="."]
+visible = false
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -208.0
+margin_top = 56.0
+margin_right = 208.0
+margin_bottom = 86.0
+custom_colors/font_color = Color( 1, 1, 1, 0 )
+custom_styles/fg = SubResource( 2 )
+custom_styles/bg = SubResource( 3 )
+max_value = 8.0
+step = 1.0
+
+[node name="Score" type="Label" parent="."]
+visible = false
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -20.0
+margin_top = 35.0
+margin_right = 20.0
+margin_bottom = 124.0
+custom_fonts/font = SubResource( 1 )
+text = "0"
+
+[node name="EvadeTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="Buttons" type="HBoxContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -106.0
+margin_top = -51.0
+margin_right = 106.0
+margin_bottom = 51.0
+custom_constants/separation = 30
+alignment = 1
+
+[node name="RestartButton" type="TextureButton" parent="Buttons"]
+margin_right = 102.0
+margin_bottom = 102.0
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 7 )
+texture_hover = ExtResource( 10 )
+
+[node name="BackButton" type="TextureButton" parent="Buttons"]
+margin_left = 132.0
+margin_right = 212.0
+margin_bottom = 102.0
+texture_normal = ExtResource( 4 )
+texture_pressed = ExtResource( 8 )
+texture_hover = ExtResource( 9 )
+flip_h = true
+
+[node name="ButtonPress" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 6 )
+volume_db = -5.0
+pitch_scale = 3.0
+
+[node name="Highscore" type="Sprite" parent="."]
+visible = false
+position = Vector2( 327, 35 )
+rotation = 0.324631
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 11 )
+
+[node name="HighScoreAnmation" type="AnimationPlayer" parent="."]
+anims/Animation = SubResource( 4 )
+anims/RESET = SubResource( 5 )
+
+[connection signal="pressed" from="BackButton2" to="." method="_on_BackButton_pressed"]
+[connection signal="timeout" from="EvadeTimer" to="." method="_on_MainMessageLabelTimer_timeout"]
+[connection signal="pressed" from="Buttons/RestartButton" to="." method="_on_Button_pressed"]
+[connection signal="pressed" from="Buttons/BackButton" to="." method="_on_BackButton_pressed"]

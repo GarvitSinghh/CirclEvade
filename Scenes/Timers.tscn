@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Scripts/Timers.gd" type="Script" id=1]
+
+[node name="Timers" type="Node"]
+script = ExtResource( 1 )
+
+[node name="EnemTimer" type="Timer" parent="."]
+autostart = true
+
+[node name="BonuTimer" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
+[connection signal="timeout" from="EnemTimer" to="." method="_on_EnemTimer_timeout"]
+[connection signal="timeout" from="BonuTimer" to="." method="_on_BonuTimer_timeout"]

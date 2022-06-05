@@ -1,0 +1,58 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://Scripts/Background.gd" type="Script" id=1]
+[ext_resource path="res://Scripts/CirclePlayer.gd" type="Script" id=2]
+[ext_resource path="res://Scenes/HUD.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scripts/CircleSpin.gd" type="Script" id=4]
+[ext_resource path="res://Scenes/Characters/Player.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Scenes/Effects/BonusEffect.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Scenes/Timers.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Assets/Sounds/new_best.wav" type="AudioStream" id=8]
+[ext_resource path="res://Assets/Background.jpg" type="Texture" id=10]
+[ext_resource path="res://Scenes/Characters/Enemy.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Scenes/Effects/DarkExplosion.tscn" type="PackedScene" id=13]
+[ext_resource path="res://Scenes/Characters/Bonus.tscn" type="PackedScene" id=14]
+
+[sub_resource type="Curve2D" id=1]
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, 61, 1079, 0, 0, 0, 0, 603, 1086, 0, 0, 0, 0, 695, 1073, 0, 0, 0, 0, 61, 1079 )
+}
+
+[node name="CircleSpin" type="Node2D"]
+script = ExtResource( 4 )
+enemy_scene = ExtResource( 11 )
+bonus_scene = ExtResource( 14 )
+enemy_explosion = ExtResource( 13 )
+bonus_explosion = ExtResource( 6 )
+
+[node name="Background" type="Node2D" parent="."]
+script = ExtResource( 1 )
+
+[node name="CanvasModulate" type="CanvasModulate" parent="Background"]
+color = Color( 0.278431, 0.211765, 0.211765, 1 )
+
+[node name="Background" type="Sprite" parent="Background"]
+modulate = Color( 0.32549, 0.341176, 0.823529, 1 )
+position = Vector2( 288, 512 )
+scale = Vector2( 0.411429, 0.411576 )
+texture = ExtResource( 10 )
+
+[node name="HUD" parent="." instance=ExtResource( 3 )]
+
+[node name="Timers" parent="." instance=ExtResource( 7 )]
+
+[node name="Circle Player" type="Node" parent="."]
+script = ExtResource( 2 )
+
+[node name="Player" parent="Circle Player" instance=ExtResource( 5 )]
+
+[node name="EnemSpawnPath" type="Path2D" parent="."]
+position = Vector2( -27, 2 )
+curve = SubResource( 1 )
+
+[node name="EnemSpawnLocation" type="PathFollow2D" parent="EnemSpawnPath"]
+position = Vector2( 61, 1079 )
+rotation = 0.0129147
+
+[node name="NewBest" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 8 )
